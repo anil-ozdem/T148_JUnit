@@ -1,7 +1,8 @@
 package day05_jUnitFramework;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,9 +14,10 @@ import utilities.ReusableMethods;
 import java.time.Duration;
 import java.util.List;
 
-public class C05_BeforeAll_AfterAll {
+public class C08_BeforeVeAfterSartMi {
 
-    // 3 farkli test method'u olusturarak asagidaki testleri gerceklestirin
+
+    // tek test method'u olusturarak asagidaki testleri gerceklestirin
     // 1- Test otomasyonu anasayfaya gidin
     //    Url'in test otomasyonu icerdigini test edin
     // 2- phone icin arama yapin
@@ -23,40 +25,39 @@ public class C05_BeforeAll_AfterAll {
     // 3- ilk urunu tiklayin
     //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
 
+    WebDriver driver;
+
     /*
-        Bu gorev icin
-        her test method'undan sonra driver'i kapatmak (@AfterEach) mantikli olmaz
+        Verilen gorev tek bir test method'u ile yapilacak bir gorev olsa da
 
-        bunun yerine
-        class calismaya basladiginda hic bir method calismadan once driver'i olusturmak
-        ve tum @Test method'lari calisip bittikten sonra
-        calisacak @Test method'u kalmadiginda
-        driver'i kapatmak daha mantikli olur
+        Webdriver'i olusturma ve kapatma islemini ayri bir setup() ve teardown() ile
+        yapmayi tercih ederiz
 
-        Bu tur birbirinin sonucuna bagli test method'lari oldugunda
-        JUnit ile method'lari tek tek run edebiliriz
-        ancak method'un yapmasi gereken islevi yapmasi mumkun olmayabilir
+        Eger tek bir test method'unun icinde
+        Webdriver olusturma ve sonunda driver'i kapatma islemlerini yaparsak
+        Test failed oldugunda exception olustugu icin
+        kodun calismasi durur ve son satirdaki driver.quit() calismaz
 
-        @BeforeAll ve @AfterAll notasyonu kullanan method'larin
-        mutlaka static olmasi gerekir
+        ozellikle toplu calistirmalarda
+        kapanmayan browser'larin olmasi
+        guzel olmaz
+
      */
-    static WebDriver driver;
 
-    @BeforeAll
-    static void setup() {
+    @BeforeEach
+    public void setup() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @AfterAll
-    static void teardown() {
+    @AfterEach
+    public void teardown() {
         driver.quit();
     }
 
     @Test
-    public void test01() {
-        // anasayfaTesti
+    public void urunTesti() {
         // 1- Test otomasyonu anasayfaya gidin
         driver.get("https://www.testotomasyonu.com");
         //    Url'in testotomasyonu icerdigini test edin
@@ -64,14 +65,8 @@ public class C05_BeforeAll_AfterAll {
         String expectedUrlIcerik = "testotomasyonu";
         String actualUrl = driver.getCurrentUrl();
 
-        if (actualUrl.contains(expectedUrlIcerik)) {
-            System.out.println("Anasayafa testi PASSED");
-        } else System.out.println("Anasayafa testi FAILED");
-    }
+        Assertions.assertTrue(actualUrl.contains(expectedUrlIcerik), "Url beklendigi gibi degil");
 
-    @Test
-    public void test02() {
-        //urunAramaTesti
         // 2- phone icin arama yapin
         WebElement aramaKutusu = driver.findElement(By.id("global-search"));
         aramaKutusu.sendKeys("phone" + Keys.ENTER);
@@ -81,15 +76,8 @@ public class C05_BeforeAll_AfterAll {
 
         int actualBulunanUrunSayisi = bulunanUrunElementleriList.size();
 
-        if (actualBulunanUrunSayisi > 0) {
-            System.out.println("Urun bulma testi PASSED");
-        } else System.out.println("Urun bulma testi FAILED");
+        Assertions.assertTrue(actualBulunanUrunSayisi > 0, "Arama sonucunda urun bulunamadi");
 
-    }
-
-    @Test
-    public void test03() {
-        //ilkUrunIsimTesti
         // 3- ilk urunu tiklayin
         driver.findElement(By.xpath("(//*[@*='prod-img'])[1]"))
                 .click();
@@ -101,11 +89,8 @@ public class C05_BeforeAll_AfterAll {
         String expectedIsimIcerik = "phone";
         String actualUrunIsmi = ilkUrunIsimElementi.getText().toLowerCase();
 
-        if (actualUrunIsmi.contains(expectedIsimIcerik)) {
-            System.out.println("Ilk urun isim testi PASSED");
-        } else System.out.println("Ilk urun isim testi FAILED");
+        Assertions.assertTrue(actualUrunIsmi.contains(expectedIsimIcerik), "Urun ismi phone icermiyor");
 
     }
-
 
 }

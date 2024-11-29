@@ -1,6 +1,7 @@
 package day05_jUnitFramework;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -13,8 +14,7 @@ import utilities.ReusableMethods;
 import java.time.Duration;
 import java.util.List;
 
-public class C05_BeforeAll_AfterAll {
-
+public class C07_JUnitAssertions {
     // 3 farkli test method'u olusturarak asagidaki testleri gerceklestirin
     // 1- Test otomasyonu anasayfaya gidin
     //    Url'in test otomasyonu icerdigini test edin
@@ -23,23 +23,8 @@ public class C05_BeforeAll_AfterAll {
     // 3- ilk urunu tiklayin
     //    ve acilan sayfadaki urun isminde case sensitive olmadan "phone" bulundugunu test edin
 
-    /*
-        Bu gorev icin
-        her test method'undan sonra driver'i kapatmak (@AfterEach) mantikli olmaz
 
-        bunun yerine
-        class calismaya basladiginda hic bir method calismadan once driver'i olusturmak
-        ve tum @Test method'lari calisip bittikten sonra
-        calisacak @Test method'u kalmadiginda
-        driver'i kapatmak daha mantikli olur
 
-        Bu tur birbirinin sonucuna bagli test method'lari oldugunda
-        JUnit ile method'lari tek tek run edebiliriz
-        ancak method'un yapmasi gereken islevi yapmasi mumkun olmayabilir
-
-        @BeforeAll ve @AfterAll notasyonu kullanan method'larin
-        mutlaka static olmasi gerekir
-     */
     static WebDriver driver;
 
     @BeforeAll
@@ -64,9 +49,8 @@ public class C05_BeforeAll_AfterAll {
         String expectedUrlIcerik = "testotomasyonu";
         String actualUrl = driver.getCurrentUrl();
 
-        if (actualUrl.contains(expectedUrlIcerik)) {
-            System.out.println("Anasayafa testi PASSED");
-        } else System.out.println("Anasayafa testi FAILED");
+        Assertions.assertTrue(  actualUrl.contains(expectedUrlIcerik) , "Url beklendigi gibi degil"  );
+
     }
 
     @Test
@@ -81,9 +65,8 @@ public class C05_BeforeAll_AfterAll {
 
         int actualBulunanUrunSayisi = bulunanUrunElementleriList.size();
 
-        if (actualBulunanUrunSayisi > 0) {
-            System.out.println("Urun bulma testi PASSED");
-        } else System.out.println("Urun bulma testi FAILED");
+
+        Assertions.assertTrue(actualBulunanUrunSayisi > 0,"Arama sonucunda urun bulunamadi");
 
     }
 
@@ -101,11 +84,7 @@ public class C05_BeforeAll_AfterAll {
         String expectedIsimIcerik = "phone";
         String actualUrunIsmi = ilkUrunIsimElementi.getText().toLowerCase();
 
-        if (actualUrunIsmi.contains(expectedIsimIcerik)) {
-            System.out.println("Ilk urun isim testi PASSED");
-        } else System.out.println("Ilk urun isim testi FAILED");
+        Assertions.assertTrue(actualUrunIsmi.contains(expectedIsimIcerik),"Urun ismi phone icermiyor");
 
     }
-
-
 }
