@@ -10,7 +10,7 @@ import utilities.TestBaseEach;
 public class C04_IFrame extends TestBaseEach {
 
     @Test
-    public void test01() {
+    public void test01(){
 
         //1- https://testotomasyonu.com/discount adresine gidin
         driver.get("https://testotomasyonu.com/discount");
@@ -24,6 +24,7 @@ public class C04_IFrame extends TestBaseEach {
         // once o iframe'e gecis yapmamiz gerekir
 
 
+
         WebElement electronicsIframeElementi = driver.findElement(By.xpath("(//iframe)[1]"));
         driver.switchTo().frame(electronicsIframeElementi);
 
@@ -35,10 +36,10 @@ public class C04_IFrame extends TestBaseEach {
         //3- Dell bilgisayar urun isminin ‘DELL Core I3 11th Gen’ olduğunu test edin
         WebElement dellElementi = driver.findElement(By.id("pictext1"));
 
-        String expectedUrunIsmi = "DELL Core I3 11th Gen";
+        String expectedUrunIsmi ="DELL Core I3 11th Gen";
         String actualUrunIsmi = dellElementi.getText();
 
-        Assertions.assertEquals(expectedUrunIsmi, actualUrunIsmi);
+        Assertions.assertEquals(expectedUrunIsmi,actualUrunIsmi);
 
         //4- Sale Up To 50% yazisinin gorunur oldugunu test edin
 
@@ -58,6 +59,22 @@ public class C04_IFrame extends TestBaseEach {
 
         Assertions.assertTrue(saleUpYaziElementi.isDisplayed());
 
+        // 5- Fashion bolumundeki ilk urunu tiklayin
+        //    fashion bolumu ayri bir IFrame icerisinde oldugundan , once o iFrame'e gecis yapmaliyiz
+        WebElement fashionIframe = driver.findElement(By.xpath("(//iframe)[2]"));
+
+        driver.switchTo().frame(fashionIframe);
+
+        // artik ilk urun isminde "Men Slim Fit" gectigini test edin
+        WebElement fashionIlkElement = driver.findElement(By.xpath("(//*[@class='overlay'])[1]"));
+        // bu xpath 3 element bulabiliyor
+        // ANNCAAAKKK biz fashion iframe icinde oldugumuzdan
+        // o iframe icinde olan tek bir elementi bize getirir
+
+        String expectedIsimIcerik = "Men Slim Fit";
+        String actualIsim = fashionIlkElement.getText();
+
+        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerik));
 
         ReusableMethods.bekle(3);
     }
