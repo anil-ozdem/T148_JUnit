@@ -67,10 +67,10 @@ public class C08_DropdownMenu extends TestBaseEach {
         driver.findElement(By.id("purchase_cash"))
                 .click();
         // 13. “Foreign currency cash was successfully purchased.” yazisinin ciktigini kontrol edin.
-        String expectedFinallyTest = "Foreign currency cash was successfully purchased.";
-        WebElement actualyFinallyTest = driver.findElement(By.id("alert_content"));
+        String expectedYaziTest = "Foreign currency cash was successfully purchased.";
+        WebElement actualyYaziTest = driver.findElement(By.id("alert_content"));
 
-        Assertions.assertTrue(actualyFinallyTest.getText().contains(expectedFinallyTest));
+        Assertions.assertTrue(actualyYaziTest.getText().contains(expectedYaziTest));
 
         ReusableMethods.bekle(5);
     }
