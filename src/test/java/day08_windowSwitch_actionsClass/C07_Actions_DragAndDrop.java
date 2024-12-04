@@ -1,4 +1,4 @@
-package day07_jsAlerts_iFrame;
+package day08_windowSwitch_actionsClass;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

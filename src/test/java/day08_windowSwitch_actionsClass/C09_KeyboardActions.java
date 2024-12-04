@@ -1,4 +1,4 @@
-package day07_jsAlerts_iFrame;
+package day08_windowSwitch_actionsClass;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import utilities.TestBaseEach;
 public class C09_KeyboardActions extends TestBaseEach {
 
     @Test
-    public void test01(){
+    public void test01() {
 
         //1- https://www.testotomasyonu.com sayfasina gidelim
         driver.get("https://www.testotomasyonu.com");
@@ -37,8 +37,8 @@ public class C09_KeyboardActions extends TestBaseEach {
                 .click();
 
         WebElement urunIsimIcerik = driver.findElement(By.xpath("//*[@*=' heading-sm mb-4']"));
-        String expectedIcerik= "DELL Core I3";
-        String actualIcerik= urunIsimIcerik.getText();
+        String expectedIcerik = "DELL Core I3";
+        String actualIcerik = urunIsimIcerik.getText();
 
         Assertions.assertTrue(actualIcerik.contains(expectedIcerik));
 
