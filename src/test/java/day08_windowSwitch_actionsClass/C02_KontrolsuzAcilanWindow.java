@@ -56,7 +56,36 @@ public class C02_KontrolsuzAcilanWindow extends TestBaseEach {
         Set<String> tumWhdSeti = driver.getWindowHandles();
         System.out.println("Ilk window'un whd : " + ilkWindowWhd);
         System.out.println("Tum window handle degerleri seti : " + tumWhdSeti);
+        String ikinciWindowWhd ="";
+
+        for(String each : tumWhdSeti) {
+            if(! each.equals(ilkWindowWhd))  {
+                ikinciWindowWhd= each;
+            }
+
+        }
+
+        driver.switchTo().window(ikinciWindowWhd);
+        System.out.println("Bulmaca cozdukten sonra title : " + driver.getTitle());
+
         //● Sayfadaki textin “New Window” olduğunu doğrulayın.
-        //● Bir önceki pencereye geri döndükten sonra sayfa başlığının “The Internet” olduğunu test edin
+        yaziElementi = driver.findElement(By.tagName("h3"));
+
+        expectedYazi = "New Window";
+        actualYazi = yaziElementi.getText();
+
+        Assertions.assertEquals(expectedYazi, actualYazi);
+
+        //● Bir önceki pencereye geri döndükten sonra sayfa başlığının
+        // “The Internet” olduğunu test edin
+
+        driver.switchTo().window(ilkWindowWhd);
+        expectedTitle = "The Internet";
+        actualTitle = driver.getTitle();
+
+        Assertions.assertEquals(expectedTitle, actualTitle);
+
+
+
     }
 }
