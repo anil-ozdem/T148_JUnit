@@ -11,6 +11,25 @@ public class C01_KontrolluWindowDegistirme extends TestBaseEach {
     @Test
     public void test01() {
 
+        /*
+
+            Eger bize verilen gorevde
+            yeni bir Tab veya yeni bir Window acilmasi isteniyosa
+            driver.switchTo().newWindow(WindowType.TAB);
+            driver.switchTo().newWindow(WindowType.WINDOW);
+            ile yeni bir Tab veya Window acip, driver'i yeni window'a otomatik olarak gecirebiliriz
+
+            Eger testimiz sirasinda birden fazla window aciliyorsa
+            driver'i istedigimiz window'a gecirmek icin
+            window hedef window'un WindowHandle degerini girmeliyiz
+            driver.switchTo().window(wisequarterWhd);
+
+            Eger birden fazla window aciyorsak ve geri donmemiz gerekecekse
+            acilan her window'un window handle degerini kaydetmek
+            faydali olacaktir.
+
+         */
+
         // test otomasyonu sayfasina gidin
         driver.get("https://www.testotomasyonu.com");
 
@@ -39,11 +58,6 @@ public class C01_KontrolluWindowDegistirme extends TestBaseEach {
         // wisequarter'in acik oldugu window'a donun
         // ve url'in wisequarter icerdigini test edin
 
-        /*
-            Eger testimiz sirasinda birden fazla window aciliyorsa
-            driver'i istedigimiz window'a gecirmek icin
-            window hedef window'un WindowHandle degerini girmeliyiz
-         */
 
         driver.switchTo().window(wisequarterWhd);
         String expectedUrlIcerik = "wisequarter";
@@ -59,7 +73,6 @@ public class C01_KontrolluWindowDegistirme extends TestBaseEach {
         actualUrlIcerik = driver.getCurrentUrl();
 
         Assertions.assertTrue(actualUrlIcerik.contains(expectedUrlIcerik));
-
 
 
     }
