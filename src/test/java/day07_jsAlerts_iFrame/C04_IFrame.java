@@ -18,7 +18,7 @@ public class C04_IFrame extends TestBaseEach {
         //2- Elektronics Products yazisinin gorunur olduğunu test edin
 
         // electronics products yazisini unique olarak locate etmemize ragmen kullanamadik
-        // HTML kodlari inceleyince kull;anmak istedigimiz webelementin
+        // HTML kodlari inceleyince kullanmak istedigimiz webelementin
         // bir iframe(gomulu HTML sayfa) icerisinde oldugunu belirledik
         // bir iframe icerisindeki elementi kullanabilmek icin
         // once o iframe'e gecis yapmamiz gerekir
