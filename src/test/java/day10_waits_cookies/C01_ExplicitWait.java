@@ -22,17 +22,18 @@ public class C01_ExplicitWait {
     //4. Textbox’in etkin oldugunu(enabled) dogrulayın.
     //5. “It’s enabled!” mesajinin goruntulendigini dogrulayın.
 
-    WebDriver driver ;
-
+    WebDriver driver;
 
     @Test
-    public void implictlyWaitTesti(){
-        driver=new ChromeDriver();
+    public void implicitlyWaitTesti() {
+
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
 
         //1. https://the-internet.herokuapp.com/dynamic_controls adresine gidin.
         driver.get("https://the-internet.herokuapp.com/dynamic_controls");
+
         //2. Textbox’in etkin olmadigini(enabled) dogrulayın
         WebElement textbox = driver.findElement(By.xpath("//input[@type='text']"));
 
@@ -53,8 +54,8 @@ public class C01_ExplicitWait {
         Assertions.assertTrue(textbox.isEnabled());
         /*
             implicitlyWait() iki durumda bekleme yapar
-            1- sayfanin yuklenmesi icin
-            2- wbir webelement'in locate edilmesi icin
+            1- sayfanin yuklenmesi
+            2- bir webelement'in locate edilmesi icin
 
             gorevin 4.maddesinde textbox'in etkin olmasini beklememiz gerekiyor
             ancak bu bekleme implicitlyWait()'in gorev kapsaminda yok
@@ -64,15 +65,16 @@ public class C01_ExplicitWait {
             Testin passed olmasi icin mutlaka ekstra bekleme gerekir
 
             ANCAAAAKKK
-            5.gorevde gorunmeyen elementin gorunu olmasini
+            5.gorevde gorunmeyen elementin gorunur olmasini
             ve locate edilebilmesini implicitlyWait() bekler
 
             yaniii
-            ozetle implicitlyWait() 4.gorevi gerceklestirmemizi saglayamazken
+            ozetle implicitlyWait() 4.gorevi gerceklestirmemizi saglayamazken,
             5.gorev icin yeterli olur
 
             4.gorevin gerceklesmesi icin Thread.sleep() kullandik
          */
+
 
         //5. “It’s enabled!” mesajinin goruntulendigini dogrulayın.
         WebElement itsEnabledYaziElementi = driver.findElement(By.id("message"));
@@ -81,51 +83,51 @@ public class C01_ExplicitWait {
 
         ReusableMethods.bekle(1);
         driver.quit();
+
     }
 
-
     @Test
-    public void explicitWaitTesti(){
-        driver=new ChromeDriver();
+    public void explicitWaitTesti() {
+
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         driver.manage().window().maximize();
+
         //1. https://the-internet.herokuapp.com/dynamic_controls adresine gidin.
         driver.get("https://the-internet.herokuapp.com/dynamic_controls");
+
         //2. Textbox’in etkin olmadigini(enabled) dogrulayın
         WebElement textbox = driver.findElement(By.xpath("//input[@type='text']"));
-
         Assertions.assertFalse(textbox.isEnabled());
 
-
-        //3. Enable butonuna tıklayın
+        //3. Enable butonuna tıklayın ve textbox etkin oluncaya kadar bekleyin
         WebElement enableButonu = driver.findElement(By.xpath("(//button[@type='button'])[2]"));
 
         enableButonu.click();
         // ve textbox etkin oluncaya kadar bekleyin
         // explicitlyWait ile bekleyelim
 
-            // 1.adim bir wait objesi olustur
+        // 1.adim bir wait objesi olustur
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-            // 2.adim MUMKUNSE beklenecek objeyi locate edip kaydedin
-            //        testbox'i locate edebiliyoruz ve yukarda locate edip kaydettik
+        // 2.adim MUMKUNSE beklenecek objeyi locate edip bir webelement olarak kaydedin
+        //        textbox'i locate edebiliyoruz ve yukarda locate edip kaydettik
 
-
-
-
-            // 3.adim wait objesine neyi bekleyecegini soyleyin
+        // 3.adim wait objesine neyi bekleyecegini soyleyin
         wait.until(ExpectedConditions.elementToBeClickable(textbox));
-
 
         //4. Textbox’in etkin oldugunu(enabled) dogrulayın.
         Assertions.assertTrue(textbox.isEnabled());
 
         //5. “It’s enabled!” mesajinin goruntulendigini dogrulayın.
+
         WebElement itsEnabledYaziElementi = driver.findElement(By.id("message"));
 
-
         Assertions.assertTrue(itsEnabledYaziElementi.isDisplayed());
+
 
         ReusableMethods.bekle(1);
         driver.quit();
     }
+
+
 }
