@@ -1,4 +1,4 @@
-package day11_WebTables_ExcelOtomasyon;
+package day11_webTables_ExcelOtomasyon;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
