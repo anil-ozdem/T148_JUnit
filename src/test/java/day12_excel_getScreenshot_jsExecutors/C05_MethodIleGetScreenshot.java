@@ -31,7 +31,9 @@ public class C05_MethodIleGetScreenshot extends TestBaseEach {
         Assertions.assertNotEquals(unExpectedAramaSonucu, actualAramaSonucu);
         ReusableMethods.bekle(1);
         // tum sayfa screenshot alin
-        ReusableMethods.tumSayfaScreenshotIsimli(driver,"aramaTesti");
+        //ReusableMethods.tumSayfaScreenshotIsimli(driver,"aramaTesti");
+        //ReusableMethods.tumSayfaScreenshotTarihli(driver);
+        ReusableMethods.tumSayfaScreenshotIsimVeTarihli(driver, "aramaTesti");
 
         // ilk urunu tiklayin
         driver.findElement(By.xpath("//*[@class='prod-img'][1]"))
@@ -48,7 +50,9 @@ public class C05_MethodIleGetScreenshot extends TestBaseEach {
 
         // sayfanin fotografini cekin
         ReusableMethods.bekle(1);
-        ReusableMethods.tumSayfaScreenshotIsimli(driver, "IlkUrunIsimTesti");
+        //ReusableMethods.tumSayfaScreenshotIsimli(driver, "IlkUrunIsimTesti");
+        //ReusableMethods.tumSayfaScreenshotTarihli(driver);
+        ReusableMethods.tumSayfaScreenshotIsimVeTarihli(driver,"C05_MethodIleGetScreenshot" );
 
     }
 }

@@ -107,4 +107,30 @@ public class ReusableMethods {
             System.out.println("Ekran resmi kaydedilemedi");
         }
     }
+
+    public static void tumSayfaScreenshotIsimVeTarihli(WebDriver driver, String isim) {
+
+        // once tarih etiketi olusturalim
+        LocalDateTime ldt = LocalDateTime.now();
+        DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+        String tarihEtiketi = ldt.format(format1);
+
+        // 1.adim tss objesi olusturalim
+        TakesScreenshot tss = (TakesScreenshot) driver;
+
+        // 2.adim resmi kaydedecegimiz File'i olusturalim
+        File asilResim = new File("target/screenshots/"+ isim + tarihEtiketi + ".jpeg");
+
+
+        // 3.adim screenshot'i alip gecici bir dosya olarak kaydedelim
+        File geciciDosya = tss.getScreenshotAs(OutputType.FILE);
+
+        // 4.adim gecici dosyayi asil dosyaya kopyalayalim
+        try {
+            FileUtils.copyFile(geciciDosya, asilResim);
+        } catch (IOException e) {
+            System.out.println("Ekran resmi kaydedilemedi");
+        }
+    }
+
 }
