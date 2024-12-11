@@ -1,8 +1,15 @@
 package utilities;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -57,4 +64,47 @@ public class ReusableMethods {
         }
     }
 
+    public static void tumSayfaScreenshotIsimli(WebDriver driver, String raporIsmi) {
+        // 1.adim tss objesi olusturalim
+        TakesScreenshot tss = (TakesScreenshot) driver;
+
+        // 2.adim resmi kaydedecegimiz File'i olusturalim
+        File asilResim = new File("target/screenshots/" + raporIsmi + ".jpeg");
+
+
+        // 3.adim screenshot'i alip gecici bir dosya olarak kaydedelim
+        File geciciDosya = tss.getScreenshotAs(OutputType.FILE);
+
+        // 4.adim gecici dosyayi asil dosyaya kopyalayalim
+        try {
+            FileUtils.copyFile(geciciDosya, asilResim);
+        } catch (IOException e) {
+            System.out.println("Ekran resmi kaydedilemedi");
+        }
+    }
+
+    public static void tumSayfaScreenshotTarihli(WebDriver driver) {
+
+        // once tarih etiketi olusturalim
+        LocalDateTime ldt = LocalDateTime.now();
+        DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+        String tarihEtiketi = ldt.format(format1);
+
+        // 1.adim tss objesi olusturalim
+        TakesScreenshot tss = (TakesScreenshot) driver;
+
+        // 2.adim resmi kaydedecegimiz File'i olusturalim
+        File asilResim = new File("target/screenshots/TumSayfaSS" + tarihEtiketi + ".jpeg");
+
+
+        // 3.adim screenshot'i alip gecici bir dosya olarak kaydedelim
+        File geciciDosya = tss.getScreenshotAs(OutputType.FILE);
+
+        // 4.adim gecici dosyayi asil dosyaya kopyalayalim
+        try {
+            FileUtils.copyFile(geciciDosya, asilResim);
+        } catch (IOException e) {
+            System.out.println("Ekran resmi kaydedilemedi");
+        }
+    }
 }
