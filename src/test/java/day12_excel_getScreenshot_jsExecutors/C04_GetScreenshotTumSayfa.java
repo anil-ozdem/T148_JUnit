@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import utilities.TestBaseEach;
+
+import java.io.File;
 
 public class C04_GetScreenshotTumSayfa extends TestBaseEach {
 
@@ -27,9 +30,18 @@ public class C04_GetScreenshotTumSayfa extends TestBaseEach {
         String unExpectedAramaSonucu = "0 Products Found";
         String actualAramaSonucu = sonucYaziElementi.getText();
 
-        Assertions.assertEquals(unExpectedAramaSonucu, actualAramaSonucu);
+        Assertions.assertNotEquals(unExpectedAramaSonucu, actualAramaSonucu);
 
 
         // tum sayfanin secreenshot'ini alin
+
+        // 1.adim tss objesi olusturalim
+        TakesScreenshot tss = (TakesScreenshot) driver;
+
+        // 2.adim resmi kaydedecegimiz File'i olusturalim
+        File asilResim = new File("target/screenshots/tumSayfaScreenShot.jpeg");
+
+
+
     }
 }
