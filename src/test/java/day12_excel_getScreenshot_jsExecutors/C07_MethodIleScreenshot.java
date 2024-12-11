@@ -1,19 +1,16 @@
 package day12_excel_getScreenshot_jsExecutors;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import utilities.ReusableMethods;
 import utilities.TestBaseEach;
 
-import java.io.File;
-import java.io.IOException;
-
-public class C06_WebElementScreenShot extends TestBaseEach {
+public class C07_MethodIleScreenshot extends TestBaseEach {
 
     @Test
-    public void test01() throws IOException {
+    public void test01(){
 
         // Testotomasyonu anasayfaya gidelim
         driver.get("https://www.testotomasyonu.com");
@@ -45,24 +42,11 @@ public class C06_WebElementScreenShot extends TestBaseEach {
         Assertions.assertTrue(logoutButonu.isDisplayed());
 
         // Logout butonunun fotografini cekin
-
-        // 1.adim screenshot alacagimiz webelementi locate edip kaydedelim
-        //        biz yukarda logout butonunu locate ettik
-
-
-        // 2.adim resmi kaydedecegimiz File'i olusturalim
-        File asilResim = new File("target/screenshots/webElementScreenshot.jpeg");
-
-
-        // 3.adim webElementi'i alip gecici bir dosya olarak kaydedelim
-        File geciciDosya = logoutButonu.getScreenshotAs(OutputType.FILE);
-
-        // 4.adim gecici dosyayi asil dosyaya kopyalayalim
-        FileUtils.copyFile(geciciDosya, asilResim);
-
+        //ReusableMethods.webElementScreenshotIsimli(logoutButonu, "LoginTesti");
+        //ReusableMethods.webElementScreenshotTarihli(logoutButonu);
+        ReusableMethods.webElementScreenshotTarihVeIsimli(logoutButonu, "loginTesti");
 
         // logout butonuna basarak sistemden cikis yapin
         logoutButonu.click();
-
     }
 }
